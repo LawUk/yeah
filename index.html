@@ -7,9 +7,9 @@
 <style>
   :root{
     --ink:#0a0a0a;
-    --muted:#9b9b9b;
+    --muted:#8a8a8a;
     --line:#ececec;
-    --hover:#f2f2f2;
+    --hover:#f4f4f4;
   }
   *{box-sizing:border-box}
   html{-webkit-text-size-adjust:100%}
@@ -27,28 +27,23 @@
     display:flex;
     justify-content:center;
   }
-  main{
-    width:100%;
-    max-width:1080px;
-  }
-  /* ---------- Título ---------- */
+  main{width:100%;max-width:1120px}
+
   h1{
     margin:0 0 clamp(20px,3vw,32px);
     font-size:clamp(30px,5.4vw,56px);
     font-weight:900;
     letter-spacing:-0.045em;
     line-height:0.98;
-    color:var(--ink);
   }
-  /* ---------- Visor 3D ---------- */
+
   .viewer{
     position:relative;
     width:100%;
-    height:560px;
-    height:clamp(300px,58vh,580px);
-    border-radius:24px;
+    height:clamp(340px,62vh,640px);
+    border-radius:28px;
     overflow:hidden;
-    background:#fafafa;
+    background:linear-gradient(180deg,#ffffff 0%,#f6f6f6 100%);
     touch-action:none;
     cursor:grab;
     overscroll-behavior:contain;
@@ -56,113 +51,55 @@
     -webkit-tap-highlight-color:transparent;
   }
   @supports (height:100dvh){
-    .viewer{height:clamp(300px,58dvh,580px)}
+    .viewer{height:clamp(340px,62dvh,640px)}
   }
   .viewer.grabbing{cursor:grabbing}
   .viewer canvas{display:block;width:100%;height:100%}
-  .fallback{
-    margin:0;padding:32px;color:var(--muted);font-size:14px;
-    font-weight:600;text-align:center;
-  }
-  /* ---------- Controles ---------- */
-  .controls{
-    display:flex;
-    flex-wrap:wrap;
-    gap:14px 28px;
-    align-items:center;
-    margin-top:24px;
-  }
-  .grp{
-    display:flex;
-    flex-wrap:wrap;
-    align-items:center;
-    gap:4px;
-  }
+  .fallback{margin:0;padding:32px;color:var(--muted);font-size:14px;font-weight:600;text-align:center}
+
+  .controls{display:flex;flex-wrap:wrap;gap:14px 28px;align-items:center;margin-top:26px}
+  .grp{display:flex;flex-wrap:wrap;align-items:center;gap:4px}
   .glab{
-    font-size:10.5px;
-    font-weight:800;
-    letter-spacing:0.14em;
-    text-transform:uppercase;
-    color:var(--muted);
-    margin-right:8px;
+    font-size:10.5px;font-weight:800;letter-spacing:0.14em;text-transform:uppercase;
+    color:var(--muted);margin-right:8px;
   }
   button{
-    font:inherit;
-    font-weight:800;
-    font-size:13.5px;
-    letter-spacing:-0.005em;
-    color:var(--ink);
-    background:transparent;
-    border:none;
-    padding:9px 15px;
-    min-height:38px;
-    border-radius:999px;
-    cursor:pointer;
-    display:inline-flex;
-    align-items:center;
-    gap:8px;
+    font:inherit;font-weight:800;font-size:13.5px;letter-spacing:-0.005em;
+    color:var(--ink);background:transparent;border:none;
+    padding:9px 15px;min-height:38px;border-radius:999px;cursor:pointer;
+    display:inline-flex;align-items:center;gap:8px;
     transition:background .16s ease,color .16s ease;
     -webkit-tap-highlight-color:transparent;
   }
   button:hover{background:var(--hover)}
   button:focus-visible{outline:2px solid var(--ink);outline-offset:2px}
   button.active{background:var(--ink);color:#fff}
-  button.active:hover{background:#000}
-  .icon{
-    font-size:15px;
-    font-weight:800;
-    line-height:1;
-    display:inline-block;
-    width:14px;
-    text-align:center;
-  }
+  .icon{font-size:16px;font-weight:800;line-height:1;display:inline-block;width:14px;text-align:center}
   .dot{
-    width:11px;height:11px;border-radius:50%;
-    flex:0 0 auto;display:inline-block;
+    width:10px;height:10px;border-radius:50%;flex:0 0 auto;display:inline-block;
+    box-shadow:0 0 0 1px rgba(0,0,0,0.08) inset;
   }
-  /* ---------- Leyenda ---------- */
-  .legend{
-    display:flex;
-    flex-wrap:wrap;
-    gap:6px;
-    margin-top:28px;
-  }
+
+  .legend{display:flex;flex-wrap:wrap;gap:6px;margin-top:28px}
   .chip{
-    display:inline-flex;
-    align-items:center;
-    gap:8px;
-    font-size:12px;
-    font-weight:700;
-    color:var(--ink);
-    background:#f6f6f6;
-    border-radius:999px;
-    padding:6px 13px 6px 6px;
-    letter-spacing:-0.005em;
+    display:inline-flex;align-items:center;gap:8px;
+    font-size:12px;font-weight:700;color:var(--ink);
+    background:#f6f6f6;border-radius:999px;padding:6px 13px 6px 6px;
   }
   .chip b{
-    display:inline-flex;
-    align-items:center;justify-content:center;
+    display:inline-flex;align-items:center;justify-content:center;
     width:20px;height:20px;border-radius:50%;
-    background:var(--ink);
-    color:#fff;
-    font-size:10.5px;
-    font-weight:800;
+    background:var(--ink);color:#fff;font-size:10.5px;font-weight:800;
   }
-  /* ---------- Móvil ---------- */
+
   @media (max-width:640px){
     body{padding:22px 16px 48px}
-    h1{margin-bottom:20px;letter-spacing:-0.04em}
-    .viewer{height:clamp(280px,50vh,420px);border-radius:20px}
-    @supports (height:100dvh){ .viewer{height:clamp(280px,50dvh,420px)} }
+    .viewer{height:clamp(300px,52vh,460px);border-radius:22px}
+    @supports (height:100dvh){ .viewer{height:clamp(300px,52dvh,460px)} }
     .controls{gap:10px 16px;margin-top:20px}
     .glab{width:100%;margin:0 0 2px 4px}
-    .grp{margin-right:4px}
     button{padding:9px 13px;font-size:13px;min-height:40px}
-    .legend{margin-top:22px}
     .chip{font-size:11.5px}
-  }
-  @media (prefers-reduced-motion:reduce){
-    button{transition:none}
   }
 </style>
 </head>
@@ -197,9 +134,9 @@
 
     <div class="grp">
       <span class="glab">Andon</span>
-      <button type="button" data-andon="39d353"><i class="dot" style="background:#39d353"></i>Verde</button>
-      <button type="button" data-andon="f2a623"><i class="dot" style="background:#f2a623"></i>Ámbar</button>
-      <button type="button" data-andon="d9483b"><i class="dot" style="background:#d9483b"></i>Rojo</button>
+      <button type="button" data-andon="34c759"><i class="dot" style="background:#34c759"></i>Verde</button>
+      <button type="button" data-andon="ff9f0a"><i class="dot" style="background:#ff9f0a"></i>Ámbar</button>
+      <button type="button" data-andon="ff3b30"><i class="dot" style="background:#ff3b30"></i>Rojo</button>
     </div>
 
     <div class="grp">
@@ -225,7 +162,7 @@
 const wrap = document.getElementById('wrap');
 let renderer;
 try{
-  renderer = new THREE.WebGLRenderer({antialias:true, alpha:true});
+  renderer = new THREE.WebGLRenderer({antialias:true, alpha:true, powerPreference:'high-performance'});
 }catch(e){
   wrap.innerHTML = '<p class="fallback">No se pudo iniciar la vista 3D en este navegador.</p>';
   return;
@@ -234,67 +171,69 @@ renderer.setPixelRatio(Math.min(window.devicePixelRatio||1, 2));
 renderer.setClearColor(0x000000, 0);
 renderer.shadowMap.enabled = true;
 renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+renderer.outputEncoding = THREE.sRGBEncoding;
 wrap.appendChild(renderer.domElement);
 
 const scene = new THREE.Scene();
-const cam = new THREE.PerspectiveCamera(32, 1, 1, 2000);
+const cam = new THREE.PerspectiveCamera(30, 1, 1, 2000);
 
-/* ---------- Iluminación suave ---------- */
-scene.add(new THREE.AmbientLight(0xffffff, 0.62));
-scene.add(new THREE.HemisphereLight(0xffffff, 0xdcdcdc, 0.55));
-const dl = new THREE.DirectionalLight(0xffffff, 0.85);
-dl.position.set(130, 240, 180);
-dl.castShadow = true;
-dl.shadow.mapSize.set(2048, 2048);
-dl.shadow.camera.left   = -180;
-dl.shadow.camera.right  =  180;
-dl.shadow.camera.top    =  180;
-dl.shadow.camera.bottom = -180;
-dl.shadow.camera.near = 40;
-dl.shadow.camera.far  = 700;
-dl.shadow.bias = -0.0004;
-dl.shadow.normalBias = 0.6;
-scene.add(dl);
-const fill = new THREE.DirectionalLight(0xffffff, 0.22);
-fill.position.set(-180, 120, -160);
+/* ---------- Iluminación ---------- */
+scene.add(new THREE.AmbientLight(0xffffff, 0.55));
+scene.add(new THREE.HemisphereLight(0xffffff, 0xe6e1d8, 0.55));
+
+const key = new THREE.DirectionalLight(0xffffff, 0.95);
+key.position.set(140, 260, 180);
+key.castShadow = true;
+key.shadow.mapSize.set(2048, 2048);
+key.shadow.camera.left   = -180;
+key.shadow.camera.right  =  180;
+key.shadow.camera.top    =  180;
+key.shadow.camera.bottom = -180;
+key.shadow.camera.near = 40;
+key.shadow.camera.far  = 800;
+key.shadow.bias = -0.0006;
+key.shadow.normalBias = 0.8;
+key.shadow.radius = 4;
+scene.add(key);
+
+const fill = new THREE.DirectionalLight(0xffffff, 0.35);
+fill.position.set(-200, 140, -120);
 scene.add(fill);
+
+const rim = new THREE.DirectionalLight(0xfff0dd, 0.25);
+rim.position.set(-60, 80, -260);
+scene.add(rim);
 
 const root = new THREE.Group(); scene.add(root);
 
-/* ---------- Paleta clara, tonos madera suaves ---------- */
-const WOOD_TOP  = 0xe8d4b0;
-const WOOD_MID  = 0xd6bb8e;
-const WOOD_DARK = 0xbf9d6c;
-const METAL     = 0xb9bcc2;
-const DARK      = 0x2a2d31;
-const SCREEN_BG = 0x111417;
+/* ---------- Paleta ---------- */
+const WOOD_TOP  = 0xdcb98a;
+const WOOD_MID  = 0xc9a56f;
+const WOOD_DARK = 0xac865a;
+const WOOD_SOFT = 0xece0cc;
+const METAL     = 0xc0c4c9;
+const METAL_D   = 0x8b9096;
+const DARK      = 0x24272b;
+const DARK_2    = 0x161a1e;
+const ACCENT    = 0x2b6cb0;
+const GREEN     = 0x34c759;
 
 const labels = [];
 const TY = 75;
 
 /* ---------- Helpers ---------- */
+function lam(c){ return new THREE.MeshLambertMaterial({color:c}); }
+
 function box(w,h,d,x,y,z,color,o){
   o = o || {};
-  let mat;
-  if(o.map){ mat = new THREE.MeshLambertMaterial({map:o.map}); }
-  else if(o.basic){ mat = new THREE.MeshBasicMaterial({color:color}); }
-  else{ mat = new THREE.MeshLambertMaterial({color:color}); }
-
+  const mat = o.map ? new THREE.MeshLambertMaterial({map:o.map})
+           : o.basic ? new THREE.MeshBasicMaterial({color:color})
+           : lam(color);
   const m = new THREE.Mesh(new THREE.BoxGeometry(w,h,d), mat);
   m.position.set(x,y,z);
-
-  if(!o.noShadow){
-    m.castShadow = true;
-    m.receiveShadow = true;
-  }
+  m.castShadow = !o.noShadow;
+  m.receiveShadow = !o.noShadow;
   (o.parent||root).add(m);
-
-  if(!o.noEdge){
-    m.add(new THREE.LineSegments(
-      new THREE.EdgesGeometry(m.geometry),
-      new THREE.LineBasicMaterial({color:0x000000, transparent:true, opacity:0.07})
-    ));
-  }
   return m;
 }
 
@@ -302,186 +241,246 @@ function cyl(rt,rb,h,seg,x,y,z,color,parent,o){
   o = o || {};
   const m = new THREE.Mesh(
     new THREE.CylinderGeometry(rt,rb,h,seg),
-    new THREE.MeshLambertMaterial({color:color})
+    lam(color)
   );
   m.position.set(x,y,z);
-  if(!o.noShadow){ m.castShadow = true; m.receiveShadow = true; }
+  m.castShadow = !o.noShadow;
+  m.receiveShadow = !o.noShadow;
   (parent||root).add(m);
   return m;
 }
 
-function sprite(cv,sx,sy,x,y,z,parent){
-  const s = new THREE.Sprite(new THREE.SpriteMaterial({
-    map:new THREE.CanvasTexture(cv), transparent:true, depthTest:false, sizeAttenuation:false
-  }));
-  s.scale.set(sx,sy,1);
-  s.userData.bx = sx;
-  s.userData.by = sy;
-  s.position.set(x,y,z);
-  (parent||root).add(s);
-  labels.push(s);
+function roundRect(g, x, y, w, h, r){
+  g.beginPath();
+  g.moveTo(x+r, y);
+  g.lineTo(x+w-r, y);
+  g.quadraticCurveTo(x+w, y, x+w, y+r);
+  g.lineTo(x+w, y+h-r);
+  g.quadraticCurveTo(x+w, y+h, x+w-r, y+h);
+  g.lineTo(x+r, y+h);
+  g.quadraticCurveTo(x, y+h, x, y+h-r);
+  g.lineTo(x, y+r);
+  g.quadraticCurveTo(x, y, x+r, y);
+  g.closePath();
 }
 
-/* Etiquetas negras, texto blanco */
-function label(text,x,y,z,parent){
-  const c = document.createElement('canvas'); c.width = 320; c.height = 64;
+/* Etiqueta en pastilla blanca, texto negro */
+function makeLabel(text, x, y, z, parent){
+  const FS = 30, PADX = 22, PADY = 12;
+  const c = document.createElement('canvas');
+  const ctx0 = c.getContext('2d');
+  ctx0.font = '800 '+FS+'px "Inter","Helvetica Neue",Arial,sans-serif';
+  const tw = ctx0.measureText(text).width;
+  c.width  = Math.ceil(tw + PADX*2);
+  c.height = FS + PADY*2;
+
   const g = c.getContext('2d');
-  g.fillStyle = '#0a0a0a'; g.fillRect(0,0,320,64);
+  g.shadowColor = 'rgba(0,0,0,0.14)';
+  g.shadowBlur = 14;
+  g.shadowOffsetY = 3;
   g.fillStyle = '#ffffff';
-  g.font = '800 30px "Inter","Helvetica Neue",Arial,sans-serif';
-  g.textAlign = 'center'; g.textBaseline = 'middle';
-  g.fillText(text,160,34);
-  sprite(c,0.1126,0.0225,x,y,z,parent);
-}
+  roundRect(g, 2, 2, c.width-4, c.height-4, c.height/2);
+  g.fill();
 
-/* Números de bin: círculo negro, número blanco */
-function numLabel(n,x,y,z,parent){
-  const c = document.createElement('canvas'); c.width = 64; c.height = 64;
-  const g = c.getContext('2d');
+  g.shadowColor = 'transparent';
+  g.strokeStyle = 'rgba(0,0,0,0.09)';
+  g.lineWidth = 1.5;
+  roundRect(g, 2, 2, c.width-4, c.height-4, c.height/2);
+  g.stroke();
+
   g.fillStyle = '#0a0a0a';
-  g.beginPath(); g.arc(32,32,28,0,6.283); g.fill();
-  g.fillStyle = '#ffffff';
-  g.font = '800 34px "Inter","Helvetica Neue",Arial,sans-serif';
-  g.textAlign = 'center'; g.textBaseline = 'middle';
-  g.fillText(n,32,33);
-  sprite(c,0.0225,0.0225,x,y,z,parent);
+  g.font = '800 '+FS+'px "Inter","Helvetica Neue",Arial,sans-serif';
+  g.textAlign = 'center';
+  g.textBaseline = 'middle';
+  g.fillText(text, c.width/2, c.height/2 + 1);
+
+  const tex = new THREE.CanvasTexture(c);
+  tex.minFilter = THREE.LinearFilter;
+  tex.magFilter = THREE.LinearFilter;
+  tex.anisotropy = 4;
+
+  const spr = new THREE.Sprite(new THREE.SpriteMaterial({
+    map: tex, transparent:true, depthTest:false, depthWrite:false,
+    sizeAttenuation:false
+  }));
+  const H = 0.026;
+  const W = H * (c.width / c.height);
+  spr.scale.set(W, H, 1);
+  spr.userData.base = {w:W, h:H};
+  spr.position.set(x,y,z);
+  (parent||root).add(spr);
+  labels.push(spr);
 }
 
-/* ---------- Suelo ---------- */
+/* Badge numérico circular negro */
+function numBadge(n, x, y, z, parent){
+  const S = 96;
+  const c = document.createElement('canvas');
+  c.width = c.height = S;
+  const g = c.getContext('2d');
+
+  g.shadowColor = 'rgba(0,0,0,0.20)';
+  g.shadowBlur = 12;
+  g.shadowOffsetY = 3;
+  g.fillStyle = '#0a0a0a';
+  g.beginPath();
+  g.arc(S/2, S/2, S/2 - 8, 0, 6.283);
+  g.fill();
+
+  g.shadowColor = 'transparent';
+  g.fillStyle = '#ffffff';
+  g.font = '800 '+Math.round(S*0.50)+'px "Inter","Helvetica Neue",Arial,sans-serif';
+  g.textAlign = 'center';
+  g.textBaseline = 'middle';
+  g.fillText(n, S/2, S/2 + 1);
+
+  const tex = new THREE.CanvasTexture(c);
+  tex.minFilter = THREE.LinearFilter;
+  tex.anisotropy = 4;
+
+  const spr = new THREE.Sprite(new THREE.SpriteMaterial({
+    map: tex, transparent:true, depthTest:false, depthWrite:false,
+    sizeAttenuation:false
+  }));
+  const size = 0.026;
+  spr.scale.set(size, size, 1);
+  spr.userData.base = {w:size, h:size};
+  spr.position.set(x,y,z);
+  (parent||root).add(spr);
+  labels.push(spr);
+}
+
+/* ---------- Suelo (solo sombra suave) ---------- */
 const ground = new THREE.Mesh(
-  new THREE.PlaneGeometry(400,400),
+  new THREE.PlaneGeometry(600, 600),
   new THREE.ShadowMaterial({opacity:0.10})
 );
 ground.rotation.x = -Math.PI/2;
-ground.position.y = 0;
+ground.position.y = 0.02;
 ground.receiveShadow = true;
 root.add(ground);
 
-const floorCircle = new THREE.Mesh(
-  new THREE.CircleGeometry(140, 56),
-  new THREE.MeshBasicMaterial({color:0x000000, transparent:true, opacity:0.012})
-);
-floorCircle.rotation.x = -Math.PI/2;
-floorCircle.position.y = 0.02;
-root.add(floorCircle);
-
 /* ---------- Estructura de la mesa ---------- */
-box(100,1.6,60, 0, TY-0.8, 0, WOOD_TOP);
-box(1.6,TY-1.6,50, -47, (TY-1.6)/2, 0, WOOD_MID);
-box(1.6,TY-1.6,50,  47, (TY-1.6)/2, 0, WOOD_MID);
-box(92.5,1.4,45, 0, 22, 0, WOOD_MID);
-
-/* Patas: pads */
-[-47,47].forEach(function(px){
-  [-22,22].forEach(function(pz){
-    box(3,1.2,3, px, 0.6, pz, DARK, {noEdge:true});
-  });
+// Tablero
+box(100, 1.8, 60, 0, TY-0.9, 0, WOOD_TOP);
+// Laterales
+box(1.8, TY-1.8, 50, -47, (TY-1.8)/2, 0, WOOD_MID);
+box(1.8, TY-1.8, 50,  47, (TY-1.8)/2, 0, WOOD_MID);
+// Entrepaño
+box(92.5, 1.6, 45, 0, 22, 0, WOOD_MID);
+// Pads
+[[-47,-22],[-47,22],[47,-22],[47,22]].forEach(function(p){
+  box(3.4, 1.4, 3.4, p[0], 0.7, p[1], DARK, {noShadow:true});
 });
 
-/* ---------- Laptop ---------- */
-box(32.3,1.9,22, -20, 23.7, 4, 0x3a3d42, {noEdge:true});
-box(28,0.25,9, -20, 24.74, 8, 0x16181b, {noEdge:true});
+/* ---------- Laptop inferior ---------- */
+box(32.3, 1.9, 22, -20, 23.7, 4, DARK_2, {noShadow:false});
+box(28, 0.25, 9, -20, 24.74, 8, 0x0d0f12, {noShadow:true});
 const lap = new THREE.Group();
 lap.position.set(-20, 24.65, -7);
 lap.rotation.x = -0.28;
 root.add(lap);
-box(32.3,20,0.8, 0,10,0, 0x3a3d42, {parent:lap,noEdge:true});
-const lc = document.createElement('canvas'); lc.width = 480; lc.height = 300;
+box(32.3, 20, 0.9, 0, 10, 0, DARK, {parent:lap});
+
+const lc = document.createElement('canvas'); lc.width = 512; lc.height = 320;
 const l = lc.getContext('2d');
-l.fillStyle = '#0b0d10'; l.fillRect(0,0,480,300);
-l.fillStyle = '#39d353'; l.font = '700 19px ui-monospace,monospace';
-l.fillText('devuan@vostro:~$ python3 estacion.py',14,34);
+l.fillStyle = '#0b0e12'; l.fillRect(0,0,512,320);
+l.fillStyle = '#34c759'; l.font = '700 20px ui-monospace,Menlo,monospace';
+l.fillText('devuan@vostro:~$ python3 estacion.py', 16, 36);
 l.fillStyle = '#8fb4d9';
-l.fillText('OpenCV  camara 1080p ... ok',14,70);
-l.fillText('ESP32 conectado por WiFi ... ok',14,100);
+l.fillText('OpenCV  camara 1080p ... ok', 16, 72);
+l.fillText('ESP32 conectado por WiFi ... ok', 16, 104);
 l.fillStyle = '#ffffff';
-l.fillText('Paso 3 de 8: spring_L',14,130);
+l.fillText('Paso 3 de 8: spring_L', 16, 136);
+l.fillStyle = '#2c3743'; l.fillRect(16, 170, 480, 12);
+l.fillStyle = '#34c759'; l.fillRect(16, 170, 180, 12);
 const lp = new THREE.Mesh(
-  new THREE.PlaneGeometry(30,18.6),
+  new THREE.PlaneGeometry(30, 18.6),
   new THREE.MeshBasicMaterial({map:new THREE.CanvasTexture(lc)})
 );
-lp.position.set(0,10,0.45);
+lp.position.set(0, 10, 0.46);
 lap.add(lp);
-label('Laptop', -20, 52, -2);
+makeLabel('Laptop', -20, 52, -2);
 
-box(11,5,6, 22, 25.25, 0, 0x1f1f1f, {noEdge:true});
-label('Fuente 5 V', 22, 33, 0);
+box(11, 5, 6, 22, 25.25, 0, DARK, {});
+makeLabel('Fuente 5 V', 22, 33, 0);
 
 /* ---------- Pórtico ---------- */
-box(8,50,1.5, -44, TY+25, -27, WOOD_MID);
-box(8,50,1.5,  44, TY+25, -27, WOOD_MID);
-box(100,7,1.5, 0, TY+46.5, -25.5, WOOD_TOP);
-[-44,44].forEach(function(px){
-  box(6,6,0.4, px, TY+3, -26.0, METAL, {noEdge:true});
-  box(6,0.4,6, px, TY+0.2, -23.3, METAL, {noEdge:true});
+box(8, 50, 1.8, -44, TY+25, -27, WOOD_MID);
+box(8, 50, 1.8,  44, TY+25, -27, WOOD_MID);
+box(100, 7, 1.8, 0, TY+46.5, -25.5, WOOD_TOP);
+
+[-44, 44].forEach(function(px){
+  box(6, 6, 0.5, px, TY+3, -26.1, METAL, {noShadow:true});
+  box(6, 0.5, 6, px, TY+0.25, -23.4, METAL, {noShadow:true});
 });
 
-/* ---------- Andon ---------- */
-const andonStrip = box(96,1.6,0.35, 0, TY+46.5, -24.6, 0x39d353, {basic:true,noEdge:true});
-box(90,0.45,2, 0, TY+42.6, -25.5, 0xf3f0e6, {basic:true,noEdge:true});
-label('Andon', 0, TY+58, -24.6);
+/* ---------- Franja Andon ---------- */
+const andonStrip = box(96, 1.8, 0.4, 0, TY+46.5, -24.6, GREEN, {basic:true, noShadow:true});
+box(90, 0.5, 2.2, 0, TY+42.6, -25.5, 0xfff6d8, {basic:true, noShadow:true});
+makeLabel('Andon', 0, TY+58, -24.6);
 
-cyl(1.4,1.4,1.8,20, 44, TY+35, -25.7, 0x1c1c1c).rotation.x = Math.PI/2;
-label('Buzzer', 56, TY+35, -25.7);
+cyl(1.5, 1.5, 1.8, 24, 44, TY+35, -25.7, 0x1c1c1c, root, {}).rotation.x = Math.PI/2;
+makeLabel('Buzzer', 56, TY+35, -25.7);
 
 /* ---------- Cámara ---------- */
-box(4,1.5,36, 0, TY+41.5, -7.5, WOOD_TOP);
-box(9,2.8,3, 0, TY+39, 9, 0x1c1c1c, {noEdge:true});
-cyl(1,1,0.7,20, 0, TY+37.3, 9, 0x1a3a5c, root, {noShadow:true});
-label('Cámara 2K', 0, TY+30, 9);
+box(4, 1.6, 36, 0, TY+41.5, -7.5, WOOD_TOP);
+box(9, 3, 3.2, 0, TY+39, 9, DARK, {});
+cyl(1, 1, 0.8, 24, 0, TY+37.2, 9, 0x1a3a5c);
+makeLabel('Cámara 2K', 0, TY+30, 9);
 
 /* ---------- Monitor ---------- */
-box(4,10,4, -28, TY, -30, 0x222222, {noEdge:true});
-cyl(1,1,20,16, -28, TY+15, -30.5, 0x333333);
-box(2.5,2.5,9, -28, TY+25, -26, 0x333333, {noEdge:true});
-box(50,30,2.5, -28, TY+25, -20, 0x1f1f1f, {noEdge:true});
+box(4, 10, 4, -28, TY, -30, DARK, {});
+cyl(1, 1, 20, 20, -28, TY+15, -30.5, 0x333333);
+box(2.5, 2.5, 9, -28, TY+25, -26, 0x333333, {});
+box(50, 30, 2.6, -28, TY+25, -20, DARK_2, {});
 
-const mc = document.createElement('canvas'); mc.width = 640; mc.height = 360;
+const mc = document.createElement('canvas'); mc.width = 700; mc.height = 420;
 const x = mc.getContext('2d');
-x.fillStyle = '#0d1116'; x.fillRect(0,0,640,360);
-x.fillStyle = '#8fb4d9'; x.font = '700 19px "Inter",sans-serif';
-x.fillText('Vista en vivo · cámara 2K',18,30);
-x.fillStyle = '#2f343a'; x.fillRect(110,56,420,250);
-x.fillStyle = '#e6dfcf'; x.fillRect(150,86,340,190);
-function hexShape(cx,cy,rad){
-  x.beginPath();
-  for(let i=0;i<6;i++){ const a = i*Math.PI/3; x.lineTo(cx+rad*Math.cos(a), cy+rad*Math.sin(a)); }
-  x.closePath(); x.fillStyle = '#4a4a46'; x.fill();
+x.fillStyle = '#0d1116'; x.fillRect(0,0,700,420);
+x.fillStyle = '#8fb4d9'; x.font = '700 20px "Inter",sans-serif';
+x.fillText('Vista en vivo · cámara 2K', 22, 34);
+x.fillStyle = '#2f343a'; x.fillRect(130, 64, 440, 260);
+x.fillStyle = '#ece5d4'; x.fillRect(170, 96, 360, 196);
+function hexShape(g, cx, cy, rad){
+  g.beginPath();
+  for(let i=0;i<6;i++){ const a = i*Math.PI/3; g.lineTo(cx+rad*Math.cos(a), cy+rad*Math.sin(a)); }
+  g.closePath(); g.fillStyle = '#55554f'; g.fill();
 }
-hexShape(255,181,36); hexShape(385,181,36);
-x.strokeStyle = '#39d353'; x.lineWidth = 4; x.strokeRect(207,133,96,96);
-x.fillStyle = '#39d353'; x.font = '800 20px "Inter",sans-serif';
-x.fillText('spring_L  OK',210,124);
-x.fillStyle = '#8fb4d9'; x.font = '600 17px "Inter",sans-serif';
-x.fillText('Secuencia correcta · paso 3 de 8',18,340);
+hexShape(x, 280, 194, 40); hexShape(x, 420, 194, 40);
+x.strokeStyle = '#34c759'; x.lineWidth = 5; x.strokeRect(232, 146, 96, 96);
+x.fillStyle = '#34c759'; x.font = '800 22px "Inter",sans-serif';
+x.fillText('spring_L  OK', 234, 138);
+x.fillStyle = '#8fb4d9'; x.font = '600 18px "Inter",sans-serif';
+x.fillText('Secuencia correcta · paso 3 de 8', 22, 388);
 
 const scr = new THREE.Mesh(
-  new THREE.PlaneGeometry(47,27),
+  new THREE.PlaneGeometry(47, 28),
   new THREE.MeshBasicMaterial({map:new THREE.CanvasTexture(mc)})
 );
 scr.position.set(-28, TY+25, -18.55);
 root.add(scr);
-label('Monitor', -58, TY+25, -20);
+makeLabel('Monitor', -58, TY+25, -20);
 
-box(12,4,8, 32, TY+2, -20, 0x1f2933, {noEdge:true});
-label('ESP32', 32, TY+10, -20);
+box(12, 4, 8, 32, TY+2, -20, 0x1f2933, {});
+makeLabel('ESP32', 32, TY+10, -20);
 
 /* ---------- Nido ---------- */
-box(20,1.2,15, 0, TY+0.6, 8, 0xf1ebdc);
-[-5,5].forEach(function(hx){ cyl(3,3,0.5,6, hx, TY+1.4, 8, 0x4a4a46); });
-box(4,0.5,4, 0, TY+1.4, 12, 0x4a4a46, {noEdge:true});
-label('Nido', 0, TY+9, 8);
+box(20, 1.4, 15, 0, TY+0.7, 8, WOOD_SOFT);
+[-5, 5].forEach(function(hx){ cyl(3, 3, 0.6, 6, hx, TY+1.7, 8, 0x55554f); });
+box(4, 0.6, 4, 0, TY+1.7, 12, 0x55554f, {noShadow:true});
+makeLabel('Nido', 0, TY+9, 8);
 
-box(6,0.7,4, 14, TY+0.3, 21, 0x2b6cb0, {noEdge:true});
-label('RFID', 14, TY+8, 21);
+box(6, 0.8, 4, 14, TY+0.35, 21, ACCENT, {noShadow:true});
+makeLabel('RFID', 14, TY+8, 21);
 
 /* ---------- Herramientas ---------- */
-box(18,2,7, -30, TY+1, 21, WOOD_MID);
-cyl(1,1,13,14, -34, TY+8.5, 21, 0x33363a);
-cyl(1,1,13,14, -26, TY+8.5, 21, 0xc0392b);
-box(2.5,0.4,2.5, -30, TY+2.2, 25, 0x2b6cb0, {noEdge:true});
-label('Herramientas', -30, TY+21, 21);
-label('INA219', -30, TY+2, 29);
+box(18, 2.2, 7, -30, TY+1.1, 21, WOOD_MID);
+cyl(1, 1, 14, 18, -34, TY+9, 21, 0x33363a);
+cyl(1, 1, 14, 18, -26, TY+9, 21, 0xc0392b);
+box(2.5, 0.4, 2.5, -30, TY+2.4, 25, ACCENT, {noShadow:true});
+makeLabel('Herramientas', -30, TY+22, 21);
+makeLabel('INA219', -30, TY+2, 29);
 
 /* ---------- Cableado ---------- */
 (function(){
@@ -492,13 +491,13 @@ label('INA219', -30, TY+2, 29);
     new THREE.Vector3(46, TY+27, 17.5)
   ];
   const tube = new THREE.Mesh(
-    new THREE.TubeGeometry(new THREE.CatmullRomCurve3(pts), 32, 0.6, 10, false),
-    new THREE.MeshLambertMaterial({color:0x2c2c2c})
+    new THREE.TubeGeometry(new THREE.CatmullRomCurve3(pts), 40, 0.6, 10, false),
+    lam(0x2c2c2c)
   );
   tube.castShadow = true;
   root.add(tube);
 })();
-box(3,6,5, 50, TY, 18, 0x222222, {noEdge:true});
+box(3, 6, 5, 50, TY, 18, DARK, {});
 
 /* ---------- Tablet HMI ---------- */
 const tab = new THREE.Group();
@@ -506,35 +505,35 @@ tab.position.set(43, TY+30, 17);
 tab.rotation.y = -0.4;
 tab.rotation.x = -0.25;
 root.add(tab);
-box(25,17,1, 0,0,0, 0x1f1f1f, {parent:tab,noEdge:true});
+box(25, 17, 1.1, 0, 0, 0, DARK_2, {parent:tab});
 
-const tc = document.createElement('canvas'); tc.width = 440; tc.height = 290;
+const tc = document.createElement('canvas'); tc.width = 480; tc.height = 320;
 const t = tc.getContext('2d');
-t.fillStyle = '#0f1720'; t.fillRect(0,0,440,290);
-t.fillStyle = '#8fb4d9'; t.font = '700 17px "Inter",sans-serif';
-t.fillText('Paso 3 de 8',20,36);
-t.fillStyle = '#ffffff'; t.font = '800 30px "Inter",sans-serif';
-t.fillText('Coloca spring_L',20,86);
-t.font = '600 18px "Inter",sans-serif'; t.fillStyle = '#c9d6e3';
-t.fillText('Toma del bin 3',20,122);
-t.fillStyle = '#2c3743'; t.fillRect(20,150,400,10);
-t.fillStyle = '#39d353'; t.fillRect(20,150,150,10);
-t.fillStyle = '#22303d'; t.fillRect(20,190,180,52); t.fillRect(220,190,200,52);
-t.fillStyle = '#e8eef5'; t.font = '700 20px "Inter",sans-serif';
-t.fillText('Pausa',64,223); t.fillText('Llamar Andon',250,223);
+t.fillStyle = '#0f1720'; t.fillRect(0,0,480,320);
+t.fillStyle = '#8fb4d9'; t.font = '700 18px "Inter",sans-serif';
+t.fillText('Paso 3 de 8', 24, 42);
+t.fillStyle = '#ffffff'; t.font = '800 32px "Inter",sans-serif';
+t.fillText('Coloca spring_L', 24, 96);
+t.font = '600 19px "Inter",sans-serif'; t.fillStyle = '#c9d6e3';
+t.fillText('Toma del bin 3', 24, 134);
+t.fillStyle = '#2c3743'; t.fillRect(24, 166, 432, 12);
+t.fillStyle = '#34c759'; t.fillRect(24, 166, 162, 12);
+t.fillStyle = '#22303d'; t.fillRect(24, 210, 200, 60); t.fillRect(240, 210, 216, 60);
+t.fillStyle = '#e8eef5'; t.font = '700 22px "Inter",sans-serif';
+t.fillText('Pausa', 76, 246); t.fillText('Llamar Andon', 268, 246);
 
 const tp = new THREE.Mesh(
-  new THREE.PlaneGeometry(23,15.1),
+  new THREE.PlaneGeometry(23, 15.4),
   new THREE.MeshBasicMaterial({map:new THREE.CanvasTexture(tc)})
 );
-tp.position.z = 0.55;
+tp.position.z = 0.6;
 tab.add(tp);
-label('Tablet', 43, TY+43, 17);
+makeLabel('Tablet', 43, TY+43, 17);
 
-/* ---------- Bandejas ---------- */
-function tray(sgn,names,start){
+/* ---------- Bandejas de bins ---------- */
+function tray(sgn, names, start){
   const g = new THREE.Group();
-  const inner = new THREE.Vector3(sgn*11, TY+0.5, -2);
+  const inner = new THREE.Vector3(sgn*11, TY+0.6, -2);
   const d = new THREE.Vector3(sgn*37.3, 0, 10);
   const L = d.length();
   g.position.copy(inner).add(d.clone().multiplyScalar(0.5));
@@ -542,24 +541,27 @@ function tray(sgn,names,start){
   root.add(g);
   const fz = sgn > 0 ? 1 : -1;
 
-  box(L,1,15, 0,0,0, WOOD_TOP, {parent:g});
-  box(L-2,0.35,0.5, 0,0.7,fz*7.15, 0x39d353, {parent:g,basic:true,noEdge:true});
+  // Base bandeja
+  box(L, 1.1, 15, 0, 0, 0, WOOD_TOP, {parent:g});
+  // Franja LED
+  box(L-2, 0.4, 0.6, 0, 0.75, fz*7.15, GREEN, {parent:g, basic:true, noShadow:true});
 
   for(let i=0;i<names.length;i++){
     const lx = -L/2 + 5.5 + i*9.2;
-    /* cubeta */
-    box(8,6,11, lx, 3.5, 0, 0xf4efe3, {parent:g});
-    box(6.4,0.3,9.4, lx, 6.55, 0, 0x3b3a36, {parent:g,noEdge:true});
-    /* sensor */
-    box(2.4,1.6,1, lx, 1.8, fz*6.1, 0x161616, {parent:g,noEdge:true});
-    numLabel(String(start+i), lx, 13, 0, g);
+    // Cubeta
+    box(8, 6, 11, lx, 3.8, 0, 0xf6f1e6, {parent:g});
+    // Interior oscuro
+    box(6.4, 0.35, 9.4, lx, 6.85, 0, 0x3b3a36, {parent:g, noShadow:true});
+    // Sensor
+    box(2.4, 1.6, 1, lx, 2.0, fz*6.1, DARK_2, {parent:g, noShadow:true});
+    numBadge(String(start+i), lx, 13.5, 0, g);
   }
 }
 tray(-1, ['a','b','c','d'], 1);
 tray( 1, ['e','f','g','h'], 5);
 
 /* ---------- Cámara orbital ---------- */
-let th = 0.55, ph = 0.22, r = 300;
+let th = 0.55, ph = 0.24, r = 310;
 const tgt = new THREE.Vector3(0, 72, 0);
 
 function clampR(v){ return Math.max(50, Math.min(700, v)); }
@@ -575,25 +577,25 @@ function upd(){
     tgt.z + rr*Math.cos(th)*Math.cos(ph)
   );
   cam.lookAt(tgt);
-  renderer.render(scene,cam);
+  renderer.render(scene, cam);
 }
-function panBy(dx,dy){
-  const k = r*0.0016;
-  tgt.x -= dx*Math.cos(th)*k;
-  tgt.z += dx*Math.sin(th)*k;
-  tgt.y = Math.max(0, Math.min(160, tgt.y + dy*k));
+function panBy(dx, dy){
+  const k = r * 0.0016;
+  tgt.x -= dx * Math.cos(th) * k;
+  tgt.z += dx * Math.sin(th) * k;
+  tgt.y = Math.max(0, Math.min(160, tgt.y + dy * k));
 }
 
 const VIEWS = {
-  gen:  [0, 72, 0,  0.55, 0.22, 300],
-  work: [0, 82, 8,  0.35, 0.55, 118],
-  scr:  [0, 100,-5, 0.12, 0.08, 168],
-  under:[0, 38, 0,  0.25, 0.12, 165],
-  top:  [0, 75, 0,  0.00, 1.30, 195]
+  gen:  [0, 72, 0,  0.55, 0.24, 310],
+  work: [0, 84, 8,  0.35, 0.55, 122],
+  scr:  [0, 100,-5, 0.12, 0.10, 175],
+  under:[0, 38, 0,  0.25, 0.14, 172],
+  top:  [0, 76, 0,  0.00, 1.28, 205]
 };
 function view(k){
   const p = VIEWS[k] || VIEWS.gen;
-  tgt.set(p[0],p[1],p[2]);
+  tgt.set(p[0], p[1], p[2]);
   th = p[3]; ph = p[4]; r = p[5];
   upd();
 }
@@ -650,10 +652,10 @@ el.addEventListener('pointermove', function(e){
   p.x = e.clientX; p.y = e.clientY;
 
   if(e.shiftKey || e.buttons === 2){
-    panBy(dx,dy);
+    panBy(dx, dy);
   } else {
-    th -= dx * 0.008;
-    ph = Math.max(0.02, Math.min(1.45, ph + dy*0.006));
+    th -= dx * 0.0075;
+    ph = Math.max(0.02, Math.min(1.45, ph + dy * 0.0055));
   }
   upd();
 });
@@ -710,15 +712,16 @@ document.getElementById('lblBtn').addEventListener('click', function(e){
 function resize(){
   const w = Math.max(1, wrap.clientWidth);
   const h = Math.max(1, wrap.clientHeight);
-  renderer.setSize(w,h,false);
+  renderer.setSize(w, h, false);
   renderer.domElement.style.width = '100%';
   renderer.domElement.style.height = '100%';
-  cam.aspect = w/h;
+  cam.aspect = w / h;
   cam.updateProjectionMatrix();
 
-  const k = w < 480 ? 0.72 : (w < 760 ? 0.86 : 1);
+  const k = w < 480 ? 0.78 : (w < 760 ? 0.9 : 1);
   labels.forEach(function(s){
-    s.scale.set(s.userData.bx * k, s.userData.by * k, 1);
+    const b = s.userData.base;
+    s.scale.set(b.w * k, b.h * k, 1);
   });
 
   upd();
