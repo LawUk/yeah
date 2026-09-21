@@ -247,7 +247,7 @@ wrap.appendChild(renderer.domElement);
 const scene = new THREE.Scene();
 const cam = new THREE.PerspectiveCamera(30, 1, 1, 2000);
 
-/* ---------- Iluminación equilibrada (nada brilloso) ---------- */
+/* ---------- Iluminación equilibrada ---------- */
 scene.add(new THREE.AmbientLight(0xffffff, 0.32));
 scene.add(new THREE.HemisphereLight(0xffffff, 0xd8cfc0, 0.28));
 
@@ -276,12 +276,12 @@ scene.add(rim);
 
 const root = new THREE.Group(); scene.add(root);
 
-/* ---------- Paleta MDF realista ---------- */
-const MDF_TOP   = 0xc7a878;   // cara superior
-const MDF_SIDE  = 0xb08d5c;   // canto lateral
-const MDF_DARK  = 0x8f6f45;   // sombras / interior
-const BIN_BG    = 0xe6dcc4;   // cubeta clara
-const BIN_IN    = 0x3f3b34;   // interior oscuro
+/* ---------- Paleta MDF ---------- */
+const MDF_TOP   = 0xc7a878;
+const MDF_SIDE  = 0xb08d5c;
+const MDF_DARK  = 0x8f6f45;
+const BIN_BG    = 0xe6dcc4;
+const BIN_IN    = 0x3f3b34;
 const METAL     = 0xa8adb2;
 const METAL_D   = 0x7c8187;
 const DARK      = 0x22262a;
@@ -335,7 +335,6 @@ function roundRect(g, x, y, w, h, r){
   g.closePath();
 }
 
-/* Etiqueta pastilla blanca, texto negro, sombra sutil */
 function makeLabel(text, x, y, z, parent){
   const FS = 30, PADX = 22, PADY = 12;
   const c = document.createElement('canvas');
@@ -378,7 +377,6 @@ function makeLabel(text, x, y, z, parent){
   labels.push(spr);
 }
 
-/* Badge numérico */
 function numBadge(n, x, y, z, parent){
   const S = 96;
   const c = document.createElement('canvas');
@@ -410,7 +408,7 @@ function numBadge(n, x, y, z, parent){
   labels.push(spr);
 }
 
-/* ---------- Suelo: sombra suave ---------- */
+/* ---------- Suelo ---------- */
 const ground = new THREE.Mesh(
   new THREE.PlaneGeometry(600, 600),
   new THREE.ShadowMaterial({opacity:0.11})
@@ -420,21 +418,11 @@ ground.position.y = 0.02;
 ground.receiveShadow = true;
 root.add(ground);
 
-/* ============================================================
-   LAYOUT DE PIEZAS
-   Mesa: 100 × 60, cara superior en y=75
-   - Bandejas de bins al fondo (z=-12), a izquierda y derecha
-   - Nido al centro, ligeramente al frente
-   - Monitor/tablet/pórtico al fondo
-   - RFID y herramientas al frente
-   - Laptop y fuente en el entrepaño inferior
-   ============================================================ */
-
 /* ---------- Estructura de la mesa ---------- */
-box(100, 2.0, 60, 0, TY-1.0, 0, MDF_TOP);            // tablero
-box(2.0, TY-2.0, 50, -47, (TY-2.0)/2, 0, MDF_SIDE);  // lateral izq
-box(2.0, TY-2.0, 50,  47, (TY-2.0)/2, 0, MDF_SIDE);  // lateral der
-box(92.5, 1.8, 45, 0, 22, 0, MDF_SIDE);              // entrepaño
+box(100, 2.0, 60, 0, TY-1.0, 0, MDF_TOP);
+box(2.0, TY-2.0, 50, -47, (TY-2.0)/2, 0, MDF_SIDE);
+box(2.0, TY-2.0, 50,  47, (TY-2.0)/2, 0, MDF_SIDE);
+box(92.5, 1.8, 45, 0, 22, 0, MDF_SIDE);
 
 [[-47,-22],[-47,22],[47,-22],[47,22]].forEach(function(p){
   box(3.6, 1.6, 3.6, p[0], 0.8, p[1], DARK, {noShadow:true});
@@ -472,7 +460,7 @@ makeLabel('Laptop', -20, 46, 2);
 box(11, 5, 6, 22, 25.4, 2, DARK, {});
 makeLabel('Fuente 5 V', 22, 36, 2);
 
-/* ---------- Pórtico (marco superior) ---------- */
+/* ---------- Pórtico ---------- */
 box(8, 50, 2.0, -44, TY+25, -27, MDF_SIDE);
 box(8, 50, 2.0,  44, TY+25, -27, MDF_SIDE);
 box(100, 8, 2.0, 0, TY+47, -25.5, MDF_TOP);
@@ -491,9 +479,7 @@ cyl(1.5, 1.5, 1.8, 24, 46, TY+35, -25.7, 0x1c1c1c, root, {}).rotation.x = Math.P
 makeLabel('Buzzer', 58, TY+35, -25.7);
 
 /* ---------- Brazo + cámara sobre el nido ---------- */
-// brazo horizontal del pórtico hacia el centro
 box(2.0, 2.0, 34, 0, TY+44, -9, MDF_DARK);
-// cámara colgando
 box(4, 1.8, 36, 0, TY+42, 8, MDF_TOP);
 box(9, 3.2, 3.2, 0, TY+40, 8, DARK, {});
 cyl(1, 1, 0.8, 24, 0, TY+38, 8, 0x1a3a5c);
@@ -531,10 +517,6 @@ scr.position.set(-34, TY+27, -18.4);
 root.add(scr);
 makeLabel('Monitor', -34, TY+50, -22);
 
-/* ---------- ESP32 (detrás del tablero, lado derecho) ---------- */
-box(12, 4, 8, 36, TY+2.4, -28, 0x1f2933, {});
-makeLabel('ESP32', 36, TY+11, -28);
-
 /* ---------- Nido de ensamble (centro) ---------- */
 box(22, 1.6, 16, 0, TY+0.8, 6, 0xeee4cd);
 [-6, 6].forEach(function(hx){ cyl(3.4, 3.4, 0.7, 6, hx, TY+2.0, 6, 0x4a4a44); });
@@ -569,11 +551,23 @@ makeLabel('Herramientas', -22, TY+23, 20);
 })();
 box(3, 6, 5, 50, TY, 18, DARK, {});
 
-/* ---------- Tablet HMI (fondo derecha) ---------- */
+/* ---------- Caja ESP32 (movida al frente-derecha de la mesa) ---------- */
+box(12, 4.5, 8, 40, TY+2.25, 12, 0x1f2933, {});
+// Detalle: pequeña antena WiFi
+cyl(0.4, 0.4, 3.5, 8, 42, TY+6.5, 12, METAL_D, root, {});
+makeLabel('ESP32', 40, TY+12, 12);
+
+/* ---------- Tablet HMI (montada en el poste derecho) ---------- */
+// Brazo de soporte desde el poste hacia el frente
+box(7, 2.0, 2.0, 40, TY+18, -24, METAL_D, {});
+box(2.0, 2.0, 8, 43, TY+18, -21, METAL_D, {});
+// Pequeña base de anclaje
+box(3, 3, 3, 44, TY+18, -26, METAL_D, {noShadow:true});
+// Tablet sobre el brazo
 const tab = new THREE.Group();
-tab.position.set(34, TY+30, -18);
-tab.rotation.y = -0.42;
-tab.rotation.x = -0.22;
+tab.position.set(40, TY+18, -19);
+tab.rotation.y = -0.55;
+tab.rotation.x = -0.14;
 root.add(tab);
 box(25, 17, 1.1, 0, 0, 0, DARK_2, {parent:tab});
 
@@ -598,11 +592,10 @@ const tp = new THREE.Mesh(
 );
 tp.position.z = 0.6;
 tab.add(tp);
-makeLabel('Tablet', 34, TY+44, -18);
+makeLabel('Tablet', 40, TY+32, -19);
 
 /* ============================================================
-   BANDEJAS DE BINS  (fila recta, al fondo de la mesa)
-   Cada bandeja: 4 bins en fila, misma orientación
+   BANDEJAS DE BINS
    ============================================================ */
 function tray(cx, names, start){
   const g = new THREE.Group();
@@ -611,24 +604,19 @@ function tray(cx, names, start){
 
   const W = 38, D = 14;
   box(W, 1.4, D, 0, 0, 0, MDF_TOP, {parent:g});
-  // Franja LED frontal
   box(W-2, 0.45, 0.7, 0, 0.85, D/2 + 0.1, GREEN, {parent:g, basic:true, noShadow:true});
 
   const spacing = 9.2;
   for(let i=0;i<names.length;i++){
     const lx = (i - 1.5) * spacing;
-    // Cubeta
     box(8, 6.2, 11, lx, 3.9, 0, BIN_BG, {parent:g});
-    // Interior oscuro
     box(6.4, 0.35, 9.4, lx, 7.05, 0, BIN_IN, {parent:g, noShadow:true});
-    // Sensor frontal
     box(2.4, 1.7, 1, lx, 2.1, D/2 - 0.9, DARK_2, {parent:g, noShadow:true});
-    // Badge numérico
     numBadge(String(start+i), lx, 14, 0, g);
   }
 }
-tray(-30, ['a','b','c','d'], 1);   // bins 1-4 (izquierda)
-tray( 30, ['e','f','g','h'], 5);   // bins 5-8 (derecha)
+tray(-30, ['a','b','c','d'], 1);
+tray( 30, ['e','f','g','h'], 5);
 
 /* ============================================================
    CÁMARA ORBITAL
