@@ -2,10 +2,6 @@
 
 Visualización 3D interactiva de una estación de ensamble asistida construida en MDF. Permite explorar todos los componentes de la estación desde diferentes ángulos con controles de cámara orbital.
 
-## Demo
-
-Despliega en GitHub Pages o abre `index.html` con un servidor local.
-
 ## Componentes de la estación
 
 | # | Componente | Descripción |
