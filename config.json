@@ -1,12 +1,12 @@
 {
   "labels": {
-    "fuente":        "Fuente 5 V",
-    "andon":         "Andon",
+    "fuente":        "Fuente 5V",
+    "andon":         "LEDs",
     "buzzer":        "Buzzer",
-    "camara":        "Cámara 2K",
+    "camara":        "Cámara",
     "monitor":       "Monitor",
     "nido":          "Nido",
-    "rfid":          "RFID",
+    "rfid":          "Check NFC",
     "herramientas":  "Herramientas",
     "esp32":         "ESP32",
     "tablet":        "Tablet",
@@ -23,7 +23,7 @@
     "tornillos"
   ],
   "monitorTexts": {
-    "title":    "Vista en vivo · cámara 2K",
+    "title":    "Vista en vivo · cámara",
     "stepInfo": "Secuencia correcta · paso 3 de 8",
     "partLabel":"spring_L  OK"
   },
