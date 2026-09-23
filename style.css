@@ -1,0 +1,171 @@
+:root{
+  --ink:#0a0a0a;
+  --muted:#8a8a8a;
+  --soft:#f2f2f2;
+  --soft-2:#e8e8e8;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{
+  margin:0;
+  padding:clamp(22px,4vw,60px) clamp(16px,3vw,44px) 72px;
+  min-height:100vh;
+  font-family:"Inter","Helvetica Neue",ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;
+  font-weight:800;
+  color:var(--ink);
+  background:#ffffff;
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
+  letter-spacing:-0.012em;
+  display:flex;
+  justify-content:center;
+}
+main{width:100%;max-width:1120px}
+
+h1{
+  margin:0 0 clamp(22px,3vw,34px);
+  font-size:clamp(30px,5.4vw,56px);
+  font-weight:900;
+  letter-spacing:-0.048em;
+  line-height:0.98;
+}
+
+.viewer{
+  position:relative;
+  width:100%;
+  height:clamp(360px,64vh,660px);
+  border-radius:26px;
+  overflow:hidden;
+  background:#fbfaf7;
+  touch-action:none;
+  cursor:grab;
+  overscroll-behavior:contain;
+  -webkit-user-select:none;user-select:none;
+  -webkit-tap-highlight-color:transparent;
+}
+@supports (height:100dvh){
+  .viewer{height:clamp(360px,64dvh,660px)}
+}
+.viewer.grabbing{cursor:grabbing}
+.viewer canvas{display:block;width:100%;height:100%}
+.fallback{margin:0;padding:32px;color:var(--muted);font-size:14px;font-weight:600;text-align:center}
+
+/* ---------- Controles ---------- */
+.controls{
+  display:flex;
+  flex-wrap:wrap;
+  gap:16px 22px;
+  align-items:flex-end;
+  margin-top:26px;
+}
+.grp{display:flex;flex-direction:column;gap:8px}
+.glab{
+  font-size:10px;
+  font-weight:800;
+  letter-spacing:0.16em;
+  text-transform:uppercase;
+  color:var(--muted);
+  padding-left:6px;
+}
+.seg{
+  display:inline-flex;
+  background:var(--soft);
+  border-radius:13px;
+  padding:4px;
+  gap:2px;
+}
+.seg button{
+  font:inherit;
+  font-size:13px;
+  font-weight:800;
+  letter-spacing:-0.008em;
+  color:#6f6f6f;
+  background:transparent;
+  border:none;
+  padding:8px 14px;
+  min-height:38px;
+  border-radius:10px;
+  cursor:pointer;
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  transition:background .16s ease, color .16s ease, box-shadow .16s ease;
+  -webkit-tap-highlight-color:transparent;
+  white-space:nowrap;
+}
+.seg button:hover{color:var(--ink)}
+.seg button:focus-visible{outline:2px solid var(--ink);outline-offset:2px}
+.seg button.active{
+  background:#ffffff;
+  color:var(--ink);
+  box-shadow:
+    0 1px 2px rgba(0,0,0,.06),
+    0 2px 8px rgba(0,0,0,.05);
+}
+.icon{
+  font-size:17px;
+  font-weight:800;
+  line-height:1;
+  display:inline-block;
+  width:12px;
+  text-align:center;
+  position:relative;
+  top:-1px;
+}
+.dot{
+  width:10px;height:10px;border-radius:50%;flex:0 0 auto;display:inline-block;
+  box-shadow:0 0 0 1px rgba(0,0,0,.10) inset;
+}
+
+/* ---------- Leyenda ---------- */
+.legend{
+  display:flex;
+  flex-wrap:wrap;
+  gap:6px;
+  margin-top:32px;
+}
+.chip{
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  font-size:12px;
+  font-weight:700;
+  color:var(--ink);
+  background:var(--soft);
+  border-radius:999px;
+  padding:6px 14px 6px 6px;
+  letter-spacing:-0.005em;
+}
+.chip b{
+  display:inline-flex;align-items:center;justify-content:center;
+  width:20px;height:20px;border-radius:50%;
+  background:var(--ink);color:#fff;
+  font-size:10.5px;font-weight:800;
+}
+
+/* ---------- Hint tecla F ---------- */
+.key-hint{
+  position:absolute;
+  bottom:12px;
+  right:14px;
+  font-size:11px;
+  font-weight:700;
+  color:rgba(0,0,0,0.35);
+  pointer-events:none;
+  letter-spacing:0.02em;
+}
+
+/* ---------- Móvil ---------- */
+@media (max-width:680px){
+  body{padding:24px 16px 56px}
+  .viewer{height:clamp(320px,54vh,480px);border-radius:20px}
+  @supports (height:100dvh){ .viewer{height:clamp(320px,54dvh,480px)} }
+  .controls{gap:12px 16px;margin-top:22px}
+  .seg button{padding:9px 13px;font-size:12.5px;min-height:40px}
+  .legend{margin-top:26px}
+  .chip{font-size:11.5px}
+  .key-hint{display:none}
+}
+@media (max-width:420px){
+  .seg button{padding:9px 11px;font-size:12px}
+}

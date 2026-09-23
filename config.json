@@ -1,0 +1,50 @@
+{
+  "labels": {
+    "fuente":        "Fuente 5 V",
+    "andon":         "Andon",
+    "buzzer":        "Buzzer",
+    "camara":        "Cámara 2K",
+    "monitor":       "Monitor",
+    "nido":          "Nido",
+    "rfid":          "RFID",
+    "herramientas":  "Herramientas",
+    "esp32":         "ESP32",
+    "tablet":        "Tablet",
+    "cpu":           "CPU"
+  },
+  "bins": [
+    "case_bottom",
+    "spring_pull",
+    "spring_L",
+    "spring_R",
+    "jaw_L",
+    "jaw_R",
+    "case_top",
+    "tornillos"
+  ],
+  "monitorTexts": {
+    "title":    "Vista en vivo · cámara 2K",
+    "stepInfo": "Secuencia correcta · paso 3 de 8",
+    "partLabel":"spring_L  OK"
+  },
+  "tabletTexts": {
+    "step":      "Paso 3 de 8",
+    "action":    "Coloca spring_L",
+    "hint":      "Toma del bin 3",
+    "btnPause":  "Pausa",
+    "btnAndon":  "Llamar Andon"
+  },
+  "colors": {
+    "MDF_TOP":  "#c7a878",
+    "MDF_SIDE": "#b08d5c",
+    "MDF_DARK": "#8f6f45",
+    "BIN_BG":   "#e6dcc4",
+    "BIN_IN":   "#3f3b34",
+    "METAL":    "#a8adb2",
+    "METAL_D":  "#7c8187",
+    "DARK":     "#22262a",
+    "DARK_2":   "#14171b",
+    "ACCENT":   "#2b6cb0",
+    "GREEN":    "#34c759"
+  }
+}
